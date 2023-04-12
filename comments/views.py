@@ -9,7 +9,7 @@ class CommentList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Comment.objects.all()
 
-    def perform_create(self,serializer):
+    def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
 
