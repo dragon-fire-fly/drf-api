@@ -108,14 +108,26 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-if "CLIENT_ORIGIN" in os.environ:
-    CORS_ALLOWED_ORIGINS = os.environ.get("CLIENT_ORIGIN")
-elif "CLIENT_ORIGIN_DEV" in os.environ:
-    CORS_ALLOWED_ORIGINS = "http://127.0.0.1/"
+# if "CLIENT_ORIGIN" in os.environ:
+#     CORS_ALLOWED_ORIGINS = os.environ.get("CLIENT_ORIGIN")
+# elif "CLIENT_ORIGIN_DEV" in os.environ:
+#     CORS_ALLOWED_ORIGINS = "http://127.0.0.1/"
+# else:
+#     CORS_ALLOWED_ORIGIN_REGEXES = [
+#         r"^https://.*\.gitpod\.io$",
+#     ]
+
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_CREDENTIALS = True
+
+if "CLIENT_ORIGIN_DEV" in os.environ:
+    CORS_ORIGIN_WHITELIST = [os.environ.get("CLIENT_ORIGIN_DEV")]
+
 else:
-    CORS_ALLOWED_ORIGIN_REGEXES = [
-        r"^https://.*\.gitpod\.io$",
-    ]
+    CORS_ORIGIN_WHITELIST = [os.environ.get("CLIENT_ORIGIN")]
+
+
 # Enables sending cookies in cross-origin requests so that users can get authentication functionality
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True
