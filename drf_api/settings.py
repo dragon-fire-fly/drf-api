@@ -63,6 +63,7 @@ DEBUG = "DEV" in os.environ
 ALLOWED_HOSTS = [
     os.environ.get("ALLOWED_HOST"),
     "localhost",
+    "127.0.0.1",
 ]
 
 
@@ -118,24 +119,12 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True
 
-if "CLIENT_ORIGIN_DEV" in os.environ:
-    CORS_ALLOWED_ORIGINS = [
-        os.environ.get("CLIENT_ORIGIN_DEV"),
-    ]
-else:
+
+if "CLIENT_ORIGIN" in os.environ:
     CORS_ALLOWED_ORIGINS = [
         os.environ.get("CLIENT_ORIGIN"),
+        os.environ.get("CLIENT_ORIGIN_DEV"),
     ]
-
-# if "CLIENT_ORIGIN_DEV" in os.environ:
-#     CORS_ALLOWED_ORIGINS = [
-#         os.environ.get("CLIENT_ORIGIN_DEV"),
-#         os.environ.get("CLIENT_ORIGIN"),
-#     ]
-# else:
-#     CORS_ALLOWED_ORIGINS = [
-#         os.environ.get("CLIENT_ORIGIN"),
-#     ]
 
 ROOT_URLCONF = "drf_api.urls"
 
